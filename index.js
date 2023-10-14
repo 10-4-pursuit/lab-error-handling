@@ -19,7 +19,13 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  //throw an error if the cart is empty
+  if(cart.length === 0){
+    throw "the cart array is empty.";
+  }
   let result = 0;
+
+  // add up the price of all items in the cart and return the total
   for (let product of cart) {
     result += product.priceInCents;
   }
@@ -36,24 +42,54 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+  //throw an error if the cart is empty
+  if (products.length === 0) {
+    throw `The products array is empty.`
+  }
+  //throw an error if the inputted values is not a number
+  if (typeof min !== "number" || typeof max !== "number") {
+    throw `The min and max values must be numbers, famo.`;
+  }
+
   const result = [];
   for (let product of products) {
+    // push all products that have a price within the price range into an array
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
+    //throw an error if the value is negative
+    if (min < 0 || max < 0) {
+      throw `these values are less than 0, bruv`
+    }
+    //throw an error if the value is not equal to zero
+    if (max === 0 || min === 0){
+      throw `this value should not equal, cuz`
+    }
+    //throw an error if any of the products is missing the `priceInCents` key"
+    if (!product.priceInCents){
+      throw `we are missing the priceInCents key, slime`
+    }
   }
+  //return an array of all products that have a price within the price range
   return result;
 }
 
 /*
-  If any errors occur in this function, it should return `0`.
+  .
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
+  // test to see if the total of all products within the price range 
+  try  {
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = getCartTotal(filteredProducts);
+  
+    return total;
+  //If any errors occur in this function, it should return `0`
+  } catch (error) {
+    return 0;
+  }
 }
+
 
 module.exports = {
   getCartTotal,
