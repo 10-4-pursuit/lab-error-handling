@@ -19,6 +19,9 @@ const exampleProducts = [
   - The `cart` array is empty.
 */
 function getCartTotal(cart) {
+  if(!cart || cart.length === 0){
+    throw "Cart is empty";
+  } 
   let result = 0;
   for (let product of cart) {
     result += product.priceInCents;
@@ -36,8 +39,17 @@ function getCartTotal(cart) {
   - Any of the products in the `products` array does not have a `priceInCents` key.
 */
 function filterProductsByPriceRange(products, min, max) {
+  if(!products || products.length === 0){
+    throw "Cart is empty";
+  }
+  if(isNaN(max) || isNaN(min)){
+    throw "Max or min is not a number";
+  }
   const result = [];
   for (let product of products) {
+    if(!product.priceInCents){
+      throw "priceInCents Key missing";
+    }
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
