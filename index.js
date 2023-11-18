@@ -42,8 +42,11 @@ function filterProductsByPriceRange(products, min, max) {
   if(!products || products.length === 0){
     throw "Cart is empty";
   }
-  if(isNaN(max) || isNaN(min)){
+  else if(!(typeof max === 'number') || !(typeof min === 'number')){
     throw "Max or min is not a number";
+  }
+  else if(max <= 0 || min < 0){
+    throw "Min or max is less than zero (0)";
   }
   const result = [];
   for (let product of products) {
@@ -61,10 +64,14 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
+  try{
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = filteredProducts.length === 0 ? 0 : getCartTotal(filteredProducts);
+    return total;
+  }catch(error){
+      return 0;
+  }
+  
 }
 
 module.exports = {
