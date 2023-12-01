@@ -1,7 +1,7 @@
 {
   "name": "8-0-error-handling-lab",
   "version": "1.0.0",
-  "description": "",
+  "description": "A current set of functions correctly filters and calculates the total for all products between a range of prices. You need to add errors to some of the functions and handle those errors in others.",
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand",
